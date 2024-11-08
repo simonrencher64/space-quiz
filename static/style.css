@@ -1,5 +1,23 @@
 .center {
 	text-align: center;
-	margin: auto;
-	border: 1px solid red;
+	
+}
+
+.baseBorder{
+	border: 10px solid red;
+	border-radius: 25px;
+}
+
+#homeTitle {
+	margin-left: 25%;
+	margin-right: 25%;
+	padding: 150px;
+	
+	
+}
+
+#homeWords {
+	margin-left: 35%;
+	margin-right: 35%;
+	padding: 20px;
 }
