@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Space Quiz{% endblock %}
+
+{% block heading %}Question {{qNum}}{% endblock %}
+
+{% block body %}
+<div>
+  <h2>{{question}}</h2>
+</div>
+<br><br>
+<div>
+  <div>
+    {{a1}}
+  </div>
+  <div>
+	{{a2}}
+  </div>
+  <div>
+	{{a3}}
+  </div>
+  <div>
+	{{a4}}
+  </div>
+</div>
+{% endblock %}
