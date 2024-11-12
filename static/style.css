@@ -21,3 +21,15 @@
 	margin-right: 35%;
 	padding: 20px;
 }
+
+#startButton{
+	margin-left: 35%;
+	margin-right: 35%;
+	padding: 20px;
+	transition: all 0.2s ease-in-out;
+}
+
+#startButton:hover{
+	transform: scale(1.1);
+	
+}
