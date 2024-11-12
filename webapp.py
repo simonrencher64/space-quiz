@@ -1,24 +1,56 @@
-from flask import Flask, request, render_template, flash
+from flask import Flask, request, render_template, flash, make_response, session
 from markupsafe import Markup
 from datetime import datetime
 
 import os
+import json
 
 app = Flask(__name__)
+app.secret_key=os.environ["secret_key"];
 
 @app.route('/')
 def render_about():
     return render_template('home.html')
  
  
-@app.route('/question1')
-def render_about():
+@app.route('/question1',methods=["GET","POST"])
+def render_question1():
+    session["qNum"] = 1
+    session["uArray"] = []
+    with open('static/answers.json') as data:
+        answers = json.load(data)
+        
+    # for loop that puts answers from json file into "ans" array
+    ans = []
+    for i in range(4): # 4 options to choose from
+        ans.append(answers[session["qNum"]-1]["Answers"][i])
     
-    return render_template('questionLayout.html',qNum=1,question=q,a1=ANS1,a2=ANS2,a3=ANS3,a4=ANS4S)
+    # sets q to question in json file
+    q = answers[session["qNum"]-1]["Question"]
+    return render_template('questionLayout.html',question=q,a=ans)
     
-@app.route('/next')
-def render_about():
-    return render_template('questionLayout.html',qNum=num,question=q,a1=ANS1,a2=ANS2,a3=ANS3,a4=ANS4S)
+    
+    
+    
+@app.route('/next',methods=["GET","POST"])
+def render_next():
+    uA = request.form["answer"]
+    session["uArray"].append(uA)
+    session["qNum"] += 1
+    with open('static/answers.json') as data:
+        answers = json.load(data)
+        
+    # -1 because qNum starts at 1
+    if session["qNum"] - 2 > len(answers):
+        return render_template('end.html')
+    # for loop that puts answers from json file into "ans" array
+    ans = []
+    for i in range(4): # 4 options to choose from
+        ans.append(answers[session["qNum"]-1]["Answers"][i])
+    
+    # sets q to question in json file
+    q = answers[session["qNum"]-1]["Question"]
+    return render_template('questionLayout.html',question=q,a=ans)
     
 def is_localhost():
     """ Determines if app is running on localhost or not
@@ -30,4 +62,4 @@ def is_localhost():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
