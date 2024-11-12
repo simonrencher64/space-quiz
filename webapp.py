@@ -10,6 +10,16 @@ app = Flask(__name__)
 def render_about():
     return render_template('home.html')
  
+ 
+@app.route('/question1')
+def render_about():
+    
+    return render_template('questionLayout.html',qNum=1,question=q,a1=ANS1,a2=ANS2,a3=ANS3,a4=ANS4S)
+    
+@app.route('/next')
+def render_about():
+    return render_template('questionLayout.html',qNum=num,question=q,a1=ANS1,a2=ANS2,a3=ANS3,a4=ANS4S)
+    
 def is_localhost():
     """ Determines if app is running on localhost or not
     Adapted from: https://stackoverflow.com/questions/17077863/how-to-see-if-a-flask-app-is-being-run-on-localhost
