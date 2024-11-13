@@ -15,7 +15,7 @@ def render_about():
  
 @app.route('/question1',methods=["GET","POST"])
 def render_question1():
-    session["qNum"] = 1
+    session["qNum"] = 0
     session["uArray"] = []
     with open('static/answers.json') as data:
         answers = json.load(data)
@@ -23,11 +23,11 @@ def render_question1():
     # for loop that puts answers from json file into "ans" array
     ans = []
     for i in range(4): # 4 options to choose from
-        ans.append(answers[session["qNum"]-1]["Answers"][i])
+        ans.append(answers[session["qNum"]]["Answers"][i])
     
     # sets q to question in json file
-    q = answers[session["qNum"]-1]["Question"]
-    return render_template('questionLayout.html',question=q,a=ans)
+    q = answers[session["qNum"]]["Question"]
+    return render_template('questionLayout.html',question=q,a=ans,qNum=int(session["qNum"])+1)
     
     
     
@@ -41,16 +41,16 @@ def render_next():
         answers = json.load(data)
         
     # -1 because qNum starts at 1
-    if session["qNum"] - 2 > len(answers):
-        return render_template('end.html')
+    if session["qNum"] - 1 > len(answers):
+        return render_template('end.html',uArray=session["uArray"])
     # for loop that puts answers from json file into "ans" array
     ans = []
     for i in range(4): # 4 options to choose from
-        ans.append(answers[session["qNum"]-1]["Answers"][i])
+        ans.append(answers[session["qNum"]]["Answers"][i])
     
     # sets q to question in json file
-    q = answers[session["qNum"]-1]["Question"]
-    return render_template('questionLayout.html',question=q,a=ans)
+    q = answers[session["qNum"]]["Question"]
+    return render_template('questionLayout.html',question=q,a=ans,qNum=int(session["qNum"])+1)
     
 def is_localhost():
     """ Determines if app is running on localhost or not
