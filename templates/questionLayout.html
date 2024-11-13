@@ -1,20 +1,47 @@
 {% extends "layout.html" %}
 
-{% block title %}Space Quiz{% endblock %}
-
-{% block heading %}Question {{qNum}}{% endblock %}
+{% block title %}Question {{qNum}}{% endblock %}
 
 {% block body %}
-<div>
-  <h2>{{question}}</h2>
+<div class = "center">
+	<div>
+		<h1>Question {{qNum}}/{{qLength}}</h1>
+		<h2>{{question}}</h2>
+	</div>
+	<br><br>
+	<form action="/next" method="post">
+	  <input type="radio" name="answer" value="0">{{a[0]}}</input>
+	  <input type="radio" name="answer" value="1">{{a[1]}}</input>
+	  <input type="radio" name="answer" value="2">{{a[2]}}</input>
+	  <input type="radio" name="answer" value="3">{{a[3]}}</input>
+	  <input type="hidden" value = "{{qNum}}">
+	  <input type = "submit">
+	</form>
+
+	<script>
+		$(document).ready(function() {
+			date = Date.now();
+			upd();
+			
+			setInterval(function() {
+				upd();
+			}, 1000);
+				
+				
+			function upd() {
+				var newTime = {{ startTime }} + (Date.now() - date);
+					
+				$(".time").val(newTime);
+					
+				var minutes = Math.floor((newTime / 1000) / 60);
+				var seconds = Math.floor((newTime / 1000) % 60);
+					
+				if (seconds<10)	$(".display").text(minutes + ":0" + seconds);
+				else $(".display").text(minutes + ":" + seconds);
+			};
+		});
+	</script>
+
+	<h3 class="display"></h3>
 </div>
-<br><br>
-<form action="/next" method="post">
-  <input type="radio" name="answer" value="0">{{a[0]}}</input>
-  <input type="radio" name="answer" value="1">{{a[1]}}</input>
-  <input type="radio" name="answer" value="2">{{a[2]}}</input>
-  <input type="radio" name="answer" value="3">{{a[3]}}</input>
-  <input type="hidden" value = "{{qNum}}">
-  <input type = "submit">
-</form>
 {% endblock %}
