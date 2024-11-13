@@ -9,18 +9,12 @@
   <h2>{{question}}</h2>
 </div>
 <br><br>
-<div>
-  <div>
-    {{a1}}
-  </div>
-  <div>
-	{{a2}}
-  </div>
-  <div>
-	{{a3}}
-  </div>
-  <div>
-	{{a4}}
-  </div>
-</div>
+<form action="/next" method="post">
+  <input type="radio" name="answer" value="0">{{a[0]}}</input>
+  <input type="radio" name="answer" value="1">{{a[1]}}</input>
+  <input type="radio" name="answer" value="2">{{a[2]}}</input>
+  <input type="radio" name="answer" value="3">{{a[3]}}</input>
+  <input type="hidden" value = "{{qNum}}">
+  <input type = "submit">
+</form>
 {% endblock %}
