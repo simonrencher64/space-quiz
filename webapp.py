@@ -65,7 +65,7 @@ def render_next():
     if session["qNum"] + 1 > len(answers):
         Score = calculateScore(session["uArray"])
         session["Finished"] = "true"
-        return render_template('end.html',score=Score,startTime=int(difference))
+        return render_template('end.html',score=Score,startTime=int(difference),qLength=len(answers),questionsScore=scores(session["uArray"]))
     # for loop that puts answers from json file into "ans" array
     ans = []
     for i in range(4): # 4 options to choose from
@@ -87,7 +87,34 @@ def calculateScore(arr):
             score += 1
     return str(score) + " / "+ str(maxScore)
 
+def scores(arr):
+    result = []
+    with open('static/answers.json') as data:
+        answers = json.load(data)
+    
+    for i in range(len(answers)):
+        if checkAnswer(i, arr[i]):
+            result.append("Correct")
+        else:
+            result.append("Incorrect")
+    
+    
+    return result        
 
+
+def checkAnswer(questionIndex, givenAnswer):
+    with open('static/answers.json') as data:
+        answers = json.load(data)
+    question = answers[questionIndex]
+    rightAnswer = question["Correct"]
+    
+    if givenAnswer == "-1":
+        return False
+    
+    return int(givenAnswer) == int(rightAnswer)
+    
+    
+    
 def is_localhost():
     """ Determines if app is running on localhost or not
     Adapted from: https://stackoverflow.com/questions/17077863/how-to-see-if-a-flask-app-is-being-run-on-localhost
