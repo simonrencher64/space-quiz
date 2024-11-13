@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key=os.environ["secret_key"];
 
 @app.route('/')
-def render_about():
+def render_home():
     return render_template('home.html')
  
  
@@ -24,7 +24,6 @@ def render_question1():
     ans = []
     for i in range(4): # 4 options to choose from
         ans.append(answers[session["qNum"]]["Answers"][i])
-    
     # sets q to question in json file
     q = answers[session["qNum"]]["Question"]
     return render_template('questionLayout.html',question=q,a=ans,qNum=int(session["qNum"])+1)
