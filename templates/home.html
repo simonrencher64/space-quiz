@@ -2,30 +2,32 @@
 
 {% block title %}Space Quiz{% endblock %}
 
-
-
 {% block body %}
-<div id="homeTitle" class="baseBorder">
-	<h1 class="center">Space Quiz</h1>
-</div>
+<div class="center">
+	<div id="homeTitle" class="baseBorder">
+		<h1 class="center">Space Quiz</h1>
+	</div>
 
-<br>
+	<br>
 
-<div id="homeWords" class="baseBorder">
-	<h3 class="center">Answer questions about space!</h3>
-</div>
+	<div id="homeWords" class="baseBorder">
+		<h3 class="center">Answer questions about space!</h3>
+	</div>
 
-<br>
+	<br>
 
 
-<!-- <div class="baseBorder" id="startButton"> -->
-	<!-- <h1 class="center">START</h1> -->
-<!-- </div> -->
+	<!-- <div class="baseBorder" id="startButton"> -->
+		<!-- <h1 class="center">START</h1> -->
+	<!-- </div> -->
 
-<div class ="center">
+
 	<form action="/question1" method="post">
 		<input id="startButton" type="submit" value="Start">
 	</form>
 </div>
+
+
+
 
 {% endblock %}
